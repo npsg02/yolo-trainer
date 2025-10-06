@@ -11,6 +11,14 @@ class TrainingStatus(str, Enum):
     FAILED = "failed"
 
 
+class DatasetType(str, Enum):
+    DETECT = "detect"
+    SEGMENT = "segment"
+    POSE = "pose"
+    CLASSIFY = "classify"
+    TRACKING = "tracking"
+
+
 # User Schemas
 class UserBase(BaseModel):
     email: EmailStr
@@ -41,6 +49,7 @@ class User(UserBase):
 class DatasetBase(BaseModel):
     name: str
     description: Optional[str] = None
+    dataset_type: DatasetType = DatasetType.DETECT
     is_public: bool = False
 
 
@@ -51,6 +60,7 @@ class DatasetCreate(DatasetBase):
 class DatasetUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
+    dataset_type: Optional[DatasetType] = None
     is_public: Optional[bool] = None
     class_names: Optional[List[str]] = None
 

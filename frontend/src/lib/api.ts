@@ -58,7 +58,7 @@ export const datasetsApi = {
     return response.data;
   },
   
-  create: async (data: { name: string; description?: string; class_names: string[] }): Promise<Dataset> => {
+  create: async (data: { name: string; description?: string; dataset_type?: string; class_names: string[] }): Promise<Dataset> => {
     const response = await apiClient.post('/datasets/', data);
     return response.data;
   },

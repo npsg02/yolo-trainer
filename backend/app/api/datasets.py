@@ -32,6 +32,7 @@ def create_dataset(
     db_dataset = Dataset(
         name=dataset.name,
         description=dataset.description,
+        dataset_type=dataset.dataset_type,
         is_public=dataset.is_public,
         owner_id=current_user.id
     )

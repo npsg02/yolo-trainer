@@ -12,6 +12,14 @@ class TrainingStatus(str, enum.Enum):
     FAILED = "failed"
 
 
+class DatasetType(str, enum.Enum):
+    DETECT = "detect"
+    SEGMENT = "segment"
+    POSE = "pose"
+    CLASSIFY = "classify"
+    TRACKING = "tracking"
+
+
 class User(Base):
     __tablename__ = "users"
     
@@ -36,6 +44,7 @@ class Dataset(Base):
     name = Column(String, nullable=False)
     description = Column(Text)
     owner_id = Column(Integer, ForeignKey("users.id"))
+    dataset_type = Column(SQLEnum(DatasetType), default=DatasetType.DETECT, nullable=False)
     num_classes = Column(Integer, default=0)
     num_images = Column(Integer, default=0)
     class_names = Column(JSON)  # List of class names

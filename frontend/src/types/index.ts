@@ -12,6 +12,7 @@ export interface Dataset {
   name: string;
   description?: string;
   owner_id: number;
+  dataset_type: 'detect' | 'segment' | 'pose' | 'classify' | 'tracking';
   num_classes: number;
   num_images: number;
   class_names?: string[];
