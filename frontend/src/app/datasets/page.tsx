@@ -24,6 +24,7 @@ export default function DatasetsPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newDatasetName, setNewDatasetName] = useState('');
   const [newDatasetDescription, setNewDatasetDescription] = useState('');
+  const [datasetType, setDatasetType] = useState<'detect' | 'segment' | 'pose' | 'classify' | 'tracking'>('detect');
   const [classNames, setClassNames] = useState('');
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState('');
@@ -83,11 +84,13 @@ export default function DatasetsPage() {
       await datasetsApi.create({
         name: newDatasetName,
         description: newDatasetDescription || undefined,
+        dataset_type: datasetType,
         class_names: classNamesArray,
       });
       setShowCreateModal(false);
       setNewDatasetName('');
       setNewDatasetDescription('');
+      setDatasetType('detect');
       setClassNames('');
       loadDatasets();
     } catch (err: any) {
@@ -202,6 +205,10 @@ export default function DatasetsPage() {
 
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Type:</span>
+                    <span className="font-semibold text-gray-900 capitalize">{dataset.dataset_type}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Images:</span>
                     <span className="font-semibold text-gray-900">{dataset.num_images}</span>
                   </div>
@@ -281,6 +288,24 @@ export default function DatasetsPage() {
                 rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Dataset Type
+              </label>
+              <select
+                value={datasetType}
+                onChange={(e) => setDatasetType(e.target.value as any)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="detect">Object Detection</option>
+                <option value="segment">Segmentation</option>
+                <option value="pose">Pose Estimation</option>
+                <option value="classify">Classification</option>
+                <option value="tracking">Object Tracking</option>
+              </select>
+              <p className="text-xs text-gray-500 mt-1">Choose the type of computer vision task</p>
             </div>
 
             <Input

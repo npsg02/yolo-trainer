@@ -145,6 +145,11 @@ export default function DatasetDetailPage() {
               {dataset.description && (
                 <p className="mt-2 text-gray-600">{dataset.description}</p>
               )}
+              <div className="mt-2">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 capitalize">
+                  {dataset.dataset_type}
+                </span>
+              </div>
             </div>
             <Button
               onClick={() => setShowUploadModal(true)}
